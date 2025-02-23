@@ -1,16 +1,16 @@
 <template>
   <Card class="lg:w-md">
     <template #content>
-      <DataTable :value="tasks" class="taskslist">
+      <DataTable :value="urgentTasks" class="taskslist">
         <template #header>
           <div>
-            <span v-if="tasks">{{ 'Urgent Tasks (' + tasks.length + ')' }}</span>
+            <span v-if="urgentTasks">{{ 'Urgent Tasks (' + urgentTasks.length + ')' }}</span>
           </div>
         </template>
         <Column field="id"></Column>
         <Column field="title">
           <template #body="slotProps">
-            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="text-blue-500 hover:underline">
+            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">
               {{ slotProps.data.title }}
             </router-link>
           </template>
@@ -32,34 +32,27 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, defineProps } from 'vue';
+const props = defineProps(['tasks']);
 
+const recentTasks = computed(() => {
+  return props.tasks.slice(-5);
+});
 
-const tasks = ref(null);
+const urgentTasks = computed(() => {
+  const incompleteTasks = recentTasks.value.filter(task => task.status.name !== 'Completed');
+
+    incompleteTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    return incompleteTasks;
+});
 
 const updateStatus = (task) => {
   if (task.status.name !== 'Completed') {
     task.status.name = 'Completed';
-
-    // Update localStorage or backend if needed
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const updatedTasks = tasks.map(t => t.id === task.id ? { ...t, status: { name: 'Completed' } } : t);
+    const updatedTasks = recentTasks.value.map(t => t.id === task.id ? { ...t, status: { name: 'Completed' } } : t);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 };
 
-onMounted(() => {
-  const savedTask = localStorage.getItem('tasks');
-
-  if (savedTask) {
-    const allTasks = JSON.parse(savedTask);
-
-    const incompleteTasks = allTasks.filter(task => task.status.name !== 'Completed');
-
-    incompleteTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-
-    tasks.value = incompleteTasks.slice(0, 5);
-  }
-});
 
 </script>

@@ -1,16 +1,16 @@
 <template>
   <Card class="lg:w-md">
     <template #content>
-      <DataTable :value="tasks" class="taskslist">
+      <DataTable :value="recentTasks" class="taskslist">
         <template #header>
           <div>
-            <span v-if="tasks">{{ 'Recent Tasks (' + tasks.length + ')' }}</span>
+            <span v-if="recentTasks">{{ 'Recent Tasks (' + recentTasks.length + ')' }}</span>
           </div>
         </template>
         <Column field="id"></Column>
         <Column field="title">
           <template #body="slotProps">
-            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="text-blue-500 hover:underline">
+            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">
               {{ slotProps.data.title }}
             </router-link>
           </template>
@@ -31,27 +31,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { defineProps, computed } from 'vue';
 
-const tasks = ref(null);
+const props = defineProps(['tasks']);
+
+const recentTasks = computed(() => {
+  return props.tasks.slice(-5);
+});
 
 const updateStatus = (task) => {
   if (task.status.name !== 'Completed') {
     task.status.name = 'Completed';
+    const updatedTasks = recentTasks.value.map(t => t.id === task.id ? { ...t, status: { name: 'Completed' } } : t);
 
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const updatedTasks = tasks.map(t => t.id === task.id ? { ...t, status: { name: 'Completed' } } : t);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 };
-
-onMounted(() => {
-  const savedTask = localStorage.getItem('tasks');
-
-  if (savedTask) {
-    const allTasks = JSON.parse(savedTask);
-    tasks.value = allTasks.slice(-5).reverse();
-  }
-});
 
 </script>
