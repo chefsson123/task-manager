@@ -6,7 +6,7 @@
           <span class="text-xl font-bold">All Tasks</span>
           <div>
             <Button class="w-30" @click="addTask(tasks ? tasks.length + 1 : 1)">Add</Button>
-            <Button class="w-30 ml-2" severity="danger">Delete</Button>
+            <Button class="w-30 ml-2" @click="deleteSelectedTasks()" severity="danger">Delete</Button>
           </div>
         </div>
       </template>
@@ -65,6 +65,13 @@ const getSeverity = (product) => {
     default:
       return null;
   }
+};
+
+
+const deleteSelectedTasks = () => {
+  tasks.value = tasks.value.filter(task => !selectedTask.value.includes(task));
+  localStorage.setItem('tasks', JSON.stringify(tasks.value));
+  selectedTask.value = []; // Clear selection
 };
 
 const formatDate = (value) => {
