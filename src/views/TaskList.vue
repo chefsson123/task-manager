@@ -5,7 +5,7 @@
         <div class="flex flex-wrap justify-between">
           <span class="text-xl font-bold">All Tasks</span>
           <div>
-            <Button class="w-30" @click="addTask(tasks ? tasks.length + 1 : 1)">Add</Button>
+            <Button class="w-30" @click="addTask(tasks && tasks.length > 0 ? tasks.length : 0)">Add</Button>
             <Button class="w-30 ml-2" @click="deleteSelectedTasks()" severity="danger">Delete</Button>
           </div>
         </div>
@@ -43,8 +43,6 @@ const tasks = ref(null);
 const selectedTask = ref();
 
 onMounted(() => {
-  // localStorage.clear();
-
   const savedTask = localStorage.getItem('tasks');
 
   if (savedTask) {

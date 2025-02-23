@@ -25,8 +25,8 @@
         <Card class="h-20 w-screen lg:w-80 ">
             <template #content class="flex flex-row justify-evenly text-center">
                 <div class="flex flex-row justify-evenly text-center">
-                    <Button class="w-30">Save</Button>
-                    <Button class="w-30" severity="danger">Cancel</Button>
+                    <Button class="w-30" @click="saveTask()">Save</Button>
+                    <Button class="w-30" @click="cancel()" severity="danger">Cancel</Button>
                 </div>
 
             </template>
@@ -36,11 +36,14 @@
 
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
 const today = ref(new Date());
-
+const tasks = ref();
+const route = useRoute();
+const router = useRouter();
+const taskId = route.params.id;
 const taskData = ref({
     title: '',
     description: '',
@@ -53,9 +56,9 @@ const taskData = ref({
 
 onMounted(() => {
     const savedTask = JSON.parse(localStorage.getItem('tasks'));
+    tasks.value = savedTask
     if (savedTask && savedTask[taskId]) {
         const task = savedTask[taskId];
-
         taskData.value = {
             title: task.title,
             description: task.description,
@@ -72,6 +75,22 @@ const statuses = ref([
     { name: 'Completed', value: 'done' },
 ]);
 
-const route = useRoute();
-const taskId = route.params.id;
+const saveTask = () => {
+  tasks.value[taskId] = {
+    id: taskId,
+    title: taskData.value.title,
+    description: taskData.value.description,
+    status: taskData.value.status,
+    dueDate: taskData.value.dueDate,
+  };
+
+  localStorage.setItem('tasks', JSON.stringify(tasks.value));
+
+  router.push('/my-tasks');
+};
+
+const cancel = () => {
+    router.push('/my-tasks')
+}
+
 </script>
