@@ -28,9 +28,13 @@ body {
 
 
 .text-success {
-  color: green;
+  color: vars.$secondary-color;;
 }
 
 .text-error {
-  color: red;
+  color: vars.$text-color-warning;
+}
+
+.task-title {
+  color: vars.$text-color;
 }

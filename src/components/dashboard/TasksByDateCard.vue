@@ -17,7 +17,7 @@
                     <Column field="id"></Column>
                     <Column field="title">
                         <template #body="slotProps">
-                            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="text-blue-500 hover:underline">
+                            <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">
                                 {{ slotProps.data.title }}
                             </router-link>
                         </template>
