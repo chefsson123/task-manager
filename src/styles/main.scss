@@ -1,0 +1,36 @@
+@use './variables' as vars;
+@use './mixins' as mixins;
+@use './navbar';
+@use "tailwindcss";
+
+
+
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: vars.$text-color;
+  overflow-x: hidden;
+  background-color: #212122;
+}
+
+.p-datatable-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.p-datatable-footer {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+
+.text-success {
+  color: green;
+}
+
+.text-error {
+  color: red;
+}

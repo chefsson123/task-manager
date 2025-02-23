@@ -1,0 +1,16 @@
+@use './variables' as vars;
+
+.navbar {
+
+  background-color: vars.$primary-color;
+  color: vars.$text-color;
+
+  li.active {
+    background-color: vars.$nav-background-color-active
+
+  }
+    
+.dashboard-item {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+}
