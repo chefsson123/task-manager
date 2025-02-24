@@ -3,7 +3,7 @@
     <DataTable v-model:selection="selectedTask" :value="tasks" class="w-sm lg:w-7xl" dataKey="id">
       <template #header>
         <div class="flex flex-wrap justify-between">
-          <span class="text-xl font-bold">All Tasks</span>
+          <span class="text-xl font-bold text-white">All Tasks</span>
           <div>
             <Button class="w-30" @click="addTask(tasks && tasks.length > 0 ? tasks.length : 0)">Add</Button>
             <Button class="w-30 ml-2" @click="deleteSelectedTasks()" severity="danger">Delete</Button>
@@ -11,15 +11,15 @@
         </div>
       </template>
       <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-      <Column field="id" header="Task Id" sortable></Column>
+      <Column field="id" header="Task Id" sortable class="text-white"></Column>
 
-      <Column field="title" header="Title" sortable></Column>
-      <Column header="Due Date" dataType="date" field="dueDate" sortable>
+      <Column field="title" header="Title" sortable class="text-white"></Column>
+      <Column header="Due Date" dataType="date" field="dueDate" sortable class="text-white">
         <template #body="{ data }">
           {{ formatDate(data.dueDate) }}
         </template>
       </Column>
-      <Column header="Status" field="status.name" sortable>
+      <Column header="Status" field="status.name" sortable class="text-white">
         <template #body="slotProps">
           <Tag :value="slotProps.data.status.name" :severity="getSeverity(slotProps.data)" />
         </template>

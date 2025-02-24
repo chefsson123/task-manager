@@ -10,11 +10,11 @@
             <template #content>
                 <DataTable :value="filteredTasks" class="taskslist">
                     <template #header>
-                        <span v-if="filteredTasks.length > 0">{{ 'Tasks By Date (' + filteredTasks.length + ')'
+                        <span v-if="filteredTasks.length > 0" class="text-white">{{ 'Tasks By Date (' + filteredTasks.length + ')'
                             }}</span>
-                        <span v-else>Select a date to view tasks for that day</span>
+                        <span v-else class="text-white">Select a date to view tasks for that day</span>
                     </template>
-                    <Column field="id"></Column>
+                    <Column field="id" class="text-white"></Column>
                     <Column field="title">
                         <template #body="slotProps">
                             <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">

@@ -1,6 +1,6 @@
 <template>
     <Card class="lg:w-md flex justify-center">
-        <template #title>Tasks this month</template>
+        <template #title><span class="text-white">Tasks this month</span></template>
         <template #content>
             <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-[20rem] m-auto" />
         </template>

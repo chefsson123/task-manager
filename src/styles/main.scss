@@ -4,8 +4,21 @@
 @use "tailwindcss";
 
 
+:root {
+  --p-card-background: #18181b !important;
+  --p-datatable-header-background: #18181b !important;
+  --p-datatable-header-cell-background: #18181b !important;
+  --p-datatable-header-cell-border-color: #18181b !important;
+  --p-datatable-row-background: #18181b !important;
+  --p-datepicker-header-background: #18181b !important;
+  --p-datepicker-panel-background: #18181b !important;
+  --p-datatable-footer-background: #18181b !important;
+  --p-inputtext-background: #18181b !important;
+  --p-textarea-background:#18181b !important;
+  --p-select-background: #18181b !important;
 
 
+}
 /* Global styles */
 body {
   margin: 0;
@@ -24,6 +37,18 @@ body {
 .p-datatable-footer {
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+}
+
+.p-datepicker-day {
+  color: white !important;
+}
+
+.p-inputtext {
+  color: white !important;
+}
+
+.p-textarea {
+  color: white !important;
 }
 
 

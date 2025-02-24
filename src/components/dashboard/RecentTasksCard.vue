@@ -4,10 +4,10 @@
       <DataTable :value="recentTasks" class="taskslist">
         <template #header>
           <div>
-            <span v-if="recentTasks">{{ 'Recent Tasks (' + recentTasks.length + ')' }}</span>
+            <span v-if="recentTasks" class="text-white">{{ 'Recent Tasks (' + recentTasks.length + ')' }}</span>
           </div>
         </template>
-        <Column field="id"></Column>
+        <Column field="id" class="text-white"></Column>
         <Column field="title">
           <template #body="slotProps">
             <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">

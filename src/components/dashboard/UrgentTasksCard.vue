@@ -4,10 +4,10 @@
       <DataTable :value="urgentTasks" class="taskslist">
         <template #header>
           <div>
-            <span v-if="urgentTasks">{{ 'Urgent Tasks (' + urgentTasks.length + ')' }}</span>
+            <span v-if="urgentTasks" class="text-white">{{ 'Urgent Tasks (' + urgentTasks.length + ')' }}</span>
           </div>
         </template>
-        <Column field="id"></Column>
+        <Column field="id" class="text-white"></Column>
         <Column field="title">
           <template #body="slotProps">
             <router-link :to="`/tasks/edit/${slotProps.data.id}`" class="task-title">
